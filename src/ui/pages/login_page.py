@@ -40,3 +40,15 @@ class LoginPage(BasePage):
 
     async def click_login(self):
         await self.login_link.click()
+
+    async def login(self, email: str, password: str):
+        await self.fill_email(email)
+        await self.fill_password(password)
+        await self.click_login()
+
+    async def register(self, email: str, password: str, confirm_password: str):
+        await self.create_account_link.click()
+        await self.fill_email(email)
+        await self.fill_password(password)
+        await self.fill_confirm_password(confirm_password)
+        await self.click_login()
