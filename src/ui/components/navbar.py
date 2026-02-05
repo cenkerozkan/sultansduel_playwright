@@ -9,6 +9,9 @@ from src.ui.pages.login_page import LoginPage
 class Navbar(BaseComponent):
     def __init__(self, page: Page) -> None:
         super().__init__(page)
+        # NOTE: One of these can be re-written with built in in order to show strict violation,
+        # especially with get_by_text usage. Trying to locate Decks button with get_by_text causes
+        # a "strict mode violation" error since there are multiple matches.
         self.top_link = self._page.get_by_role("link", name="Sultan's Duel")
         self.home_link = self._page.locator("xpath=/html/body/div/nav/div/div[5]/div/div/div[1]/a")
         self.play_link = self._page.locator("xpath=/html/body/div/nav/div/div[5]/div/div/div[2]/a")
