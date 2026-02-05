@@ -1,5 +1,6 @@
 from playwright.async_api import Page
 
+
 class BaseComponent:
     def __init__(self, page: Page) -> None:
         self._page = page
