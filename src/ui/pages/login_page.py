@@ -6,12 +6,13 @@ from .base_page import BasePage
 
 
 class LoginPage(BasePage):
-    def __init__(self, page, base_url) -> None:
-        super().__init__(page, base_url)
+    def __init__(self, page) -> None:
+        super().__init__(page)
 
         # Locators
         self.email_box = self._page.get_by_placeholder(text="Email address")
         self.password_box = self._page.get_by_placeholder(text="Password")
+        self.login_button = self._page.get_by_role(role="button", name="Log In")
         self.confirm_password_box = self._page.get_by_placeholder(
             text="Confirm Password"
         )
@@ -39,7 +40,7 @@ class LoginPage(BasePage):
         await self.create_account_link.click()
 
     async def click_login(self):
-        await self.login_link.click()
+        await self.login_button.click()
 
     async def login(self, email: str, password: str):
         await self.fill_email(email)
