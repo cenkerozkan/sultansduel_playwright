@@ -4,8 +4,6 @@ from playwright.async_api import Page, Locator, expect, Playwright, async_playwr
 
 from .base_component import BaseComponent
 
-from src.ui.pages.login_page import LoginPage
-
 
 class Navbar(BaseComponent):
     def __init__(self, page: Page) -> None:
@@ -37,9 +35,8 @@ class Navbar(BaseComponent):
         self.logout_button = self._page.get_by_role("button", name="Logout")
     
     @classmethod
-    async def create(cls, page: Page) -> "Navbar":
+    def create(cls, page: Page) -> "Navbar":
         navbar = cls(page)
-        await expect(navbar.top_link).to_be_visible()
         return navbar
 
     async def navigate_to_home(self) -> None:
@@ -68,39 +65,3 @@ class Navbar(BaseComponent):
 
     async def logout(self) -> None:
         await self.logout_button.click()
-
-
-async def simple_test(email, password):
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        await page.goto("https://www.sultansduel.com/")
-        login_page = LoginPage(page)
-        await login_page.login(email, password)
-        navbar = Navbar(page)
-
-        await navbar.navigate_to_decks()
-        await asyncio.sleep(2)
-        await navbar.navigate_to_games()
-        await asyncio.sleep(2)
-        await navbar.navigate_to_leaderboard()
-        await asyncio.sleep(2)
-        await navbar.navigate_to_gameplay()
-        await asyncio.sleep(2)
-        await navbar.open_tutorial()
-        await asyncio.sleep(2)
-        await navbar.toggle_theme()
-        await asyncio.sleep(2)
-        await navbar.logout()
-        await asyncio.sleep(2)
-
-
-if __name__ == "__main__":
-    from dotenv import load_dotenv
-    import os
-
-    load_dotenv()
-    email = os.getenv("USER_EMAIL")
-    password = os.getenv("USER_PASSWORD")
-
-    asyncio.run(simple_test(email, password))
