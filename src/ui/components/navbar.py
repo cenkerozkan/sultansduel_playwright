@@ -35,6 +35,12 @@ class Navbar(BaseComponent):
         self.tutorial_button = self._page.get_by_text("Tutorial")
         self.theme_button = self._page.get_by_role("button", name="Change Theme")
         self.logout_button = self._page.get_by_role("button", name="Logout")
+    
+    @classmethod
+    async def create(cls, page: Page) -> "Navbar":
+        navbar = cls(page)
+        await expect(navbar.top_link).to_be_visible()
+        return navbar
 
     async def navigate_to_home(self) -> None:
         await self.home_link.click()

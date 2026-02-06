@@ -8,7 +8,7 @@ from src.ui.components.navbar import Navbar
 class BasePage:
     def __init__(self, page: Page, navbar: Optional[Navbar] = None) -> None:
         self._page = page
-        self._navbar = navbar
+        self._navbar = navbar or Navbar.create(page)
 
     @property
     def page(self) -> Page:
