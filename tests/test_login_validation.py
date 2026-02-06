@@ -22,3 +22,5 @@ async def test_login_validation(
     await login_page.login(random_email, password)
 
     await expect(login_page.auth_failed_message).to_be_visible()
+
+    await login_page.login(email=env["USER_EMAIL"], password=env["USER_PASSWORD"])
